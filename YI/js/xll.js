@@ -25,6 +25,7 @@ $(document).ready(function(){
 
 	(function init(){
 		sizeChange()
+		$('.ty_people .pics:eq(1) .big').eq(0).addClass('db')
 	})();
 
 	$(window).resize(function(){
@@ -41,6 +42,11 @@ $(document).ready(function(){
 	$('.ty_people .close').click(function(e){
 		publicFuc.stopbubble(e);
 		$(this).parents('li').removeClass('on');
+		$('.ty_people .big').removeClass('db');
+	})
+
+	$('.ty_people .big').click(function(e){
+		publicFuc.stopbubble(e);
 	})
 
 	$('.ty_people li').click(function(){
@@ -48,29 +54,25 @@ $(document).ready(function(){
 		// if ($(this).parents('.on')) {
 		// 	return
 		// }
+		$('.ty_people .big').removeClass('db');
+		$(this).find('.big').eq(0).addClass('db');
 		$(this).addClass('on').siblings('').removeClass('on');
 	})
 
 	$('.ty_people .left').click(function(e){
 		publicFuc.stopbubble(e);
-		var index = $(this).parents('li').index();
-		var pre = index - 1;
-		$(this).parents('li').removeClass('on');
-		if (index == 0) {
-			pre = 2;
+		if ($(this).parent().next().find('.db').prev().hasClass('small')) {
+			return
 		}
-		$('.ty_people li').eq(pre).addClass('on')
+		$(this).parent().next().find('.db').removeClass('db').prev().addClass('db');
 	})
 
 	$('.ty_people .right').click(function(e){
 		publicFuc.stopbubble(e);
-		var index = $(this).parents('li').index();
-		var next = index + 1;
-		$(this).parents('li').removeClass('on');
-		if (index == 2) {
-			next = 0;
+		if ($(this).parent().next().find('.db').next().length == 0) {
+			return
 		}
-		$('.ty_people li').eq(next).addClass('on')
+		$(this).parent().next().find('.db').removeClass('db').next().addClass('db');
 	})
 	if ($('.ty_swiper2').length) {
 		$('.ty_swiper2 .icon_left').click(function(){
